@@ -1,0 +1,23 @@
+.container {
+  padding: 100px 0;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.input-field {
+  display: flex;
+  align-items: center;
+
+  input {
+    flex: 1 1 auto;
+  }
+
+  button {
+    width: 100px;
+    cursor: pointer;
+  }
+}
+
+.todo-list {
+  
+}

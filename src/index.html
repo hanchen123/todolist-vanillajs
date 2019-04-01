@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" data-framework="javascript">
+  <head>
+    <meta charset="utf-8">
+    <title>TodoMVC</title>
+    <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
+  </head>
+  <body>
+    <section class="container">
+      <div class="input-field">
+        <input type="text" />
+        <button>ADD</button>
+      </div>
+      <ul class="todo-list">
+        
+      </ul>
+    </section>
+    <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
+  </body>
+</html>
