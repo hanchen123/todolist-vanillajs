@@ -5,7 +5,7 @@
     this.todoTemplate
     = '<li data-id="{{id}}" class="{{status}}">'
     +   '<div class="todo-view">'
-    +     '<label>{{name}}</label>'
+    +     '<label class="todo-name">{{name}}</label>'
     +     '<button class="todo-remove">remove</button>'
     +   '</div>'
     + '</li>';
