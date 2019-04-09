@@ -8,6 +8,7 @@
     this.$todoList = qs('.todo-list');
     this.$input = qs('.todo-input');
     this.$addButton = qs('.todo-add');
+    this.$footer = qs('.todo-footer');
   }
 
   View.prototype._id = function(element) {
@@ -61,6 +62,11 @@
     qs('.todo-name', item).textContent = name;
   } 
 
+  View.prototype.filter = function(filter) {
+    qs('.todo-filter.todo-filter--selected').classList.remove('todo-filter--selected');
+    qs('.todo-filter[data-filter="' + filter + '"]').classList.add('todo-filter--selected');
+  } 
+
   View.prototype.bind = function(event, callback) {
     var self = this;
     if (event === 'addNew') {
@@ -104,6 +110,14 @@
           this.blur();
         }
       }, 'li .todo-edit');
+    } else if (event === 'toggleItem') {
+      $delegate(self.$todoList, 'click', function(ev) {
+        callback(self._id(this), this.checked);
+      }, '.todo-toggle');
+    } else if (event === 'setFilter') {
+      $delegate(self.$footer, 'click', function(ev) {
+        callback(this.dataset.filter);
+      }, '.todo-filter');
     }
   }
 
@@ -124,6 +138,9 @@
       },
       editSave: function() {
         self.save(params);
+      },
+      setFilter: function() {
+        self.filter(params);
       }
     }
 

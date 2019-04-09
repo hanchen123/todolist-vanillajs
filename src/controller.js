@@ -21,7 +21,29 @@
     self.view.bind('editDone', function (id) {
       self.editDone(id);
     });
+    self.view.bind('toggleItem', function (id, checked) {
+      self.toggleItem(id, checked);
+    });
+    self.view.bind('setFilter', function (filter) {
+      self.setFilter(filter);
+    });
   }
+
+  Controller.prototype._showAll = function (todos) {
+    this.view.render('showList', todos);
+  };
+
+  Controller.prototype._showActive = function (todos) {
+    this.view.render('showList', todos.filter(function(todo) {
+      return todo.status === 'active';
+    }));
+  };
+
+  Controller.prototype._showCompleted = function (todos) {
+    this.view.render('showList', todos.filter(function(todo) {
+      return todo.status === 'completed';
+    }));
+  };
 
   Controller.prototype.addNew = function (name) {
     var self = this;
@@ -32,7 +54,7 @@
 
     self.model.create(name, function (todos) {
       self.view.render('cleanInput');
-      self.view.render('showList', todos);
+      self['_show' + self.model.filter](todos);
     });
   };
 
@@ -71,6 +93,24 @@
     } else {
       self.removeItem(param.id);
     }
+  };
+
+  Controller.prototype.toggleItem = function (id, checked) {
+    var self = this;
+    var updater = checked ? {status: 'completed'} : {status: 'active'};
+
+    self.model.update(id, updater, function (todos) {
+      self['_show' + self.model.filter](todos);
+    }); 
+  };
+
+  Controller.prototype.setFilter = function (filter) {
+    var self = this;
+
+    self.model.setFilter(filter, function (todos) {
+      self.view.render('setFilter', filter);
+      self['_show' + self.model.filter](todos);
+    }); 
   };
   
   win.app = win.app || {};

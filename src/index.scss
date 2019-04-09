@@ -46,3 +46,19 @@
   bottom: 0;
   width: 100%;
 }
+
+.todo-footer {
+  text-align: right;
+}
+
+.todo-filter {
+  border: 1px solid black;
+  padding: 0 5px;
+  cursor: pointer;
+
+  &--selected {
+    background-color: #d5d5d5;
+    cursor: default;
+  }
+}
+

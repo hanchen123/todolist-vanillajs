@@ -3,6 +3,7 @@
 
   function Model() {
     this.store = [];
+    this.filter = 'All';
   }
 
   Model.prototype._find = function(query) {
@@ -70,8 +71,15 @@
       }
     }
 
-    callback.call(this);
+    callback.call(this, this.store);
   }
+
+  Model.prototype.setFilter = function(filter, callback) {
+    callback = callback || function () {};
+
+    this.filter = filter;
+    callback.call(this, this.store);
+  };
 
   win.app = win.app || {};
   win.app.model = Model;
